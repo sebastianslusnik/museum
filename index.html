@@ -1,0 +1,783 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Willowbrook Museum</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Willowbrook Museum is a charming local museum celebrating art, history, and community with rotating exhibitions, events, and educational programs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23c9a86a' d='M8 28l24-16 24 16v4H8z'/%3E%3Cpath fill='%231d1d1f' d='M14 30h36v20H14z'/%3E%3Ccircle cx='32' cy='40' r='6' fill='%23c9a86a'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#f7f6f3;
+  --panel:#ffffff;
+  --text:#1d1d1f;
+  --muted:#656565;
+  --line:#e9e5dd;
+  --accent:#c9a86a;
+  --accent-2:#8c7040;
+  --shadow:0 10px 30px rgba(0,0,0,.08);
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  color:var(--text);
+  background:radial-gradient(1200px 800px at 80% -10%, #fff 20%, var(--bg) 60%), var(--bg);
+  line-height:1.6;
+}
+h1,h2,h3,h4{
+  font-family:"Playfair Display",serif;
+  color:#161616;
+  letter-spacing:.2px;
+}
+h1{font-size:clamp(2.4rem,4.4vw,4rem);line-height:1.1}
+h2{font-size:clamp(1.8rem,2.8vw,2.4rem);line-height:1.2;margin:0 0 .6rem}
+h3{font-size:clamp(1.2rem,1.8vw,1.4rem);margin:.2rem 0 .4rem}
+p{margin:.2rem 0 1rem}
+a{color:inherit;text-decoration:none}
+a.button{
+  display:inline-flex;align-items:center;gap:.6rem;border-radius:999px;padding:.9rem 1.2rem;font-weight:600;
+  background:var(--text);color:#fff;box-shadow:var(--shadow);border:1px solid #0000;
+}
+a.button:hover{transform:translateY(-1px);transition:transform .2s ease}
+a.button.alt{background:linear-gradient(180deg,#fefefe,#f7f4ee);color:#161616;border-color:var(--line)}
+.container{width:min(1180px,92%);margin:0 auto}
+.grid{display:grid;gap:1.2rem}
+.btn-row{display:flex;flex-wrap:wrap;gap:.8rem}
+.chip{display:inline-flex;align-items:center;gap:.4rem;padding:.4rem .7rem;border-radius:999px;background:#f2efe9;color:#4a4031;font-weight:600;font-size:.85rem}
+.section{padding:clamp(50px,7vw,110px) 0}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+hr.sep{border:0;border-top:1px solid var(--line);margin:2rem 0}
+.visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+.skip-link{
+  position:absolute;left:-999px;top:auto;transition:left .2s;padding:.6rem 1rem;background:#000;color:#fff;border-radius:8px;z-index:9999
+}
+.skip-link:focus{left:1rem;top:1rem}
+header{
+  position:sticky;top:0;z-index:1000;background:rgba(247,246,243,.8);backdrop-filter:saturate(1.2) blur(10px);
+  border-bottom:1px solid rgba(0,0,0,.06)
+}
+.navbar{display:flex;align-items:center;justify-content:space-between;padding:.8rem 0;gap:1rem}
+.brand{display:flex;align-items:center;gap:.75rem;font-weight:800;letter-spacing:.5px}
+.brand .logo{
+  width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(160deg,#d8c093,#b88b3b);
+  color:#fff;box-shadow:var(--shadow)
+}
+nav ul{list-style:none;display:flex;gap:1rem;padding:0;margin:0}
+nav a{padding:.6rem .8rem;border-radius:999px}
+nav a:hover, nav a:focus-visible{background:#eee7;outline:none}
+.nav-cta{display:flex;align-items:center;gap:.6rem}
+.mobile-toggle{display:none;border:1px solid var(--line);background:#fff;border-radius:12px;padding:.6rem}
+.hero{
+  padding:clamp(70px,10vw,140px) 0 60px;
+  background:
+    linear-gradient(180deg,rgba(247,246,243,0),rgba(247,246,243,1) 70%),
+    url('https://images.unsplash.com/photo-1514890547357-a9ee1c5e3a66?q=80&w=1800&auto=format&fit=crop') center/cover no-repeat;
+}
+.hero .wrap{display:grid;gap:1.2rem;grid-template-columns:1.2fr .8fr;align-items:end}
+.hero .card{
+  padding:1.2rem;border-radius:var(--radius);background:rgba(255,255,255,.8);border:1px solid var(--line);backdrop-filter:blur(6px)
+}
+.hero .lead{font-size:clamp(1.05rem,1.6vw,1.25rem);color:#373737}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1rem}
+.kpi{padding:1rem;border:1px solid var(--line);border-radius:14px;background:#fff;text-align:center}
+.kpi strong{display:block;font-size:1.4rem}
+.badge{display:inline-flex;align-items:center;gap:.5rem;font-weight:700;font-size:.9rem;background:#141414;color:#fff;padding:.4rem .7rem;border-radius:999px}
+.badge svg{width:18px;height:18px}
+.section.intro .grid{grid-template-columns:1fr 1fr}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.card{padding:1rem;border:1px solid var(--line);border-radius:16px;background:#fff;display:flex;flex-direction:column;gap:.7rem}
+.card .thumb{aspect-ratio:16/10;border-radius:12px;background:#f0ece3;overflow:hidden}
+.card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.meta{display:flex;align-items:center;gap:.6rem;color:#6b6b6b;font-size:.9rem}
+.meta .dot{width:6px;height:6px;background:var(--accent);border-radius:2px}
+.tabs{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:.8rem}
+.tab{padding:.5rem .9rem;border-radius:999px;border:1px solid var(--line);background:#fff;cursor:pointer}
+.tab.active{background:linear-gradient(180deg,#fff,#f3efe6);border-color:#d8d2c7}
+.visit .info{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.visit .map{border:1px solid var(--line);border-radius:16px;overflow:hidden;min-height:320px}
+.pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.price-card{padding:1rem;border:1px solid var(--line);border-radius:16px;background:#fff;display:flex;flex-direction:column;gap:.8rem}
+.price{font-size:2rem;font-weight:800}
+.event-list{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.event{padding:1rem;border:1px solid var(--line);border-radius:16px;background:#fff;display:grid;gap:.4rem}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem}
+.gallery a{display:block;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.gallery img{width:100%;height:100%;display:block;object-fit:cover;aspect-ratio:1/1}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:2000}
+.lightbox.open{display:flex}
+.lightbox img{max-width:90vw;max-height:85vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.lightbox .close{position:absolute;top:16px;right:16px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:.5rem .7rem;font-weight:700}
+.columns{display:grid;grid-template-columns:1.1fr .9fr;gap:1rem}
+.steps{display:grid;gap:.7rem}
+.step{display:flex;gap:.7rem;align-items:flex-start}
+.step .n{width:36px;height:36px;border-radius:10px;background:#f0ece3;display:grid;place-items:center;font-weight:700}
+.shop-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.shop-item{padding:.8rem;border:1px solid var(--line);border-radius:12px;background:#fff;display:flex;flex-direction:column;gap:.5rem}
+.testimonials{position:relative}
+.slider{overflow:hidden;position:relative;border:1px solid var(--line);border-radius:16px;background:#fff}
+.slides{display:flex;transition:transform .5s ease}
+.slide{min-width:100%;padding:1.2rem}
+.quote{font-size:1.1rem}
+.news{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.faq{display:grid;gap:.6rem}
+.faq details{border:1px solid var(--line);border-radius:12px;background:#fff;padding:.8rem}
+.newsletter{display:grid;grid-template-columns:1fr .9fr;gap:1rem;align-items:center}
+.form-row{display:flex;gap:.6rem;flex-wrap:wrap}
+input,select,textarea{
+  width:100%;padding:.8rem .9rem;border:1px solid var(--line);border-radius:12px;background:#fff;font:inherit;outline-offset:2px
+}
+textarea{min-height:140px;resize:vertical}
+.form-actions{display:flex;gap:.6rem;align-items:center}
+footer{
+  background:#111;color:#e8e6e1;border-top:1px solid #000;position:relative
+}
+.footer-top{padding:60px 0}
+.footer-grid{display:grid;grid-template-columns:1.2fr repeat(3,1fr);gap:1.2rem}
+.footer-grid a{color:#dcdad3}
+.footer-bottom{padding:18px 0;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;font-size:.9rem;color:#bdb9ae}
+.social{display:flex;gap:.6rem}
+.icon{width:20px;height:20px}
+.stamp{
+  position:absolute;right:2%;top:-28px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:.6rem 1rem;box-shadow:var(--shadow);
+  display:flex;align-items:center;gap:.5rem;color:#2a2a2a
+}
+.reveal{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media (max-width:1024px){
+  .hero .wrap{grid-template-columns:1fr}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .visit .info,.newsletter,.columns{grid-template-columns:1fr}
+  .event-list,.pricing,.cards,.news{grid-template-columns:repeat(2,1fr)}
+  .gallery{grid-template-columns:repeat(3,1fr)}
+  .shop-grid{grid-template-columns:repeat(3,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:720px){
+  nav ul{display:none;position:absolute;inset:64px 0 auto 0;padding:1rem;background:#fff;border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+  nav ul.open{display:grid;gap:.4rem}
+  .mobile-toggle{display:block}
+  .nav-cta{display:none}
+  .cards,.event-list,.pricing,.news{grid-template-columns:1fr}
+  .gallery{grid-template-columns:repeat(2,1fr)}
+  .shop-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<svg aria-hidden="true" width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="icon-ticket" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4H5a2 2 0 0 0-2 2v3a2 2 0 0 1 0 6v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3a2 2 0 1 1 0-6V6a2 2 0 0 0-2-2m-5 2v12h-4V6z"/></symbol>
+    <symbol id="icon-clock" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2m1 5h-2v6l5 3l1-1.5l-4-2.5z"/></symbol>
+    <symbol id="icon-pin" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7m0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5"/></symbol>
+    <symbol id="icon-star" viewBox="0 0 24 24"><path fill="currentColor" d="m12 17.27l6.18 3.73l-1.64-7.03L22 9.24l-7.19-.61L12 2L9.19 8.63L2 9.24l5.46 4.73L5.82 21z"/></symbol>
+    <symbol id="icon-mail" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v.4l10 6.25L22 6.4V6a2 2 0 0 0-2-2m0 4.75l-8 5l-8-5V18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2z"/></symbol>
+    <symbol id="icon-phone" viewBox="0 0 24 24"><path fill="currentColor" d="M20 15.5c-1.25 0-2.5-.2-3.65-.6c-.35-.15-.75-.05-1 .25l-2.2 2.2a15.2 15.2 0 0 1-6.7-6.7l2.2-2.2c.25-.25.35-.65.2-1C8.7 6.5 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1c0 9.4 7.6 17 17 17c.55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1"/></symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24"><path fill="currentColor" d="m13.5 5.5l-1.4 1.4l4.1 4.1H5v2h11.2l-4.1 4.1l1.4 1.4L21 12z"/></symbol>
+    <symbol id="icon-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M12.1 21.35 10.55 20C5.4 15.36 2 12.28 2 8.5A4.5 4.5 0 0 1 6.5 4A5 5 0 0 1 12 6a5 5 0 0 1 5.5-2A4.5 4.5 0 0 1 22 8.5c0 3.78-3.4 6.86-8.55 11.5z"/></symbol>
+  </defs>
+</svg>
+
+<header>
+  <div class="container navbar" role="navigation" aria-label="Primary">
+    <a href="#" class="brand" aria-label="Willowbrook Museum home">
+      <span class="logo" aria-hidden="true">WM</span>
+      <span>Willowbrook Museum</span>
+      <span class="chip" aria-label="Open today"><svg class="icon" aria-hidden="true"><use href="#icon-clock"/></svg>Open 10–6</span>
+    </a>
+    <button class="mobile-toggle" aria-expanded="false" aria-controls="navmenu">Menu</button>
+    <nav>
+      <ul id="navmenu">
+        <li><a href="#about">About</a></li>
+        <li><a href="#exhibitions">Exhibitions</a></li>
+        <li><a href="#visit">Visit</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#membership">Support</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a class="button alt" href="#tickets"><svg class="icon" aria-hidden="true"><use href="#icon-ticket"/></svg>Tickets</a>
+      <a class="button" href="#visit"><svg class="icon" aria-hidden="true"><use href="#icon-pin"/></svg>Plan Your Visit</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero">
+    <div class="container">
+      <div class="wrap">
+        <div class="reveal">
+          <div class="badge"><svg class="icon" aria-hidden="true"><use href="#icon-star"/></svg> A neighborhood treasure since 1926</div>
+          <h1>Where stories of art, craft, and community come alive</h1>
+          <p class="lead">Discover intimate galleries, rotating exhibitions, family programs, and a peaceful courtyard at the heart of Willowbrook.</p>
+          <div class="btn-row">
+            <a class="button" href="#tickets"><svg class="icon" aria-hidden="true"><use href="#icon-ticket"/></svg>Get Tickets</a>
+            <a class="button alt" href="#exhibitions"><svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg>Explore Exhibitions</a>
+          </div>
+          <div class="kpis">
+            <div class="kpi"><strong>18,000+</strong><span>Objects in our collection</span></div>
+            <div class="kpi"><strong>4</strong><span>Rotating shows yearly</span></div>
+            <div class="kpi"><strong>95%</strong><span>Visitor satisfaction</span></div>
+            <div class="kpi"><strong>100%</strong><span>Accessible spaces</span></div>
+          </div>
+        </div>
+        <div class="card reveal">
+          <h3>Today at Willowbrook</h3>
+          <hr class="sep">
+          <div class="grid" style="grid-template-columns:1fr 1fr">
+            <div>
+              <div class="meta"><svg class="icon" aria-hidden="true"><use href="#icon-clock"/></svg><span>10:00 AM – 6:00 PM</span></div>
+              <div class="meta"><svg class="icon" aria-hidden="true"><use href="#icon-pin"/></svg><span>132 Maple Lane, Willowbrook</span></div>
+            </div>
+            <div>
+              <div class="meta"><span class="dot"></span><span>Free with membership</span></div>
+              <div class="meta"><span class="dot"></span><span>Guided tours at 11 and 2</span></div>
+            </div>
+          </div>
+          <div class="btn-row" style="margin-top:.8rem">
+            <a class="button alt" href="#visit">Visitor Guide</a>
+            <a class="button" href="#events">Today’s Events</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section intro">
+    <div class="container grid">
+      <div class="reveal">
+        <h2 id="about">About the Museum</h2>
+        <p>Founded by local artisans and storytellers, Willowbrook Museum preserves the craft traditions and cultural histories that shaped our town. Our intimate galleries and hands-on spaces invite visitors of all ages to slow down, look closely, and connect.</p>
+        <div class="steps">
+          <div class="step"><div class="n">1</div><div><strong>Crafted collections</strong><div>Decorative arts, folk objects, and contemporary works rooted in place.</div></div></div>
+          <div class="step"><div class="n">2</div><div><strong>Community-first</strong><div>Free family days, artist talks, and neighborhood partnerships.</div></div></div>
+          <div class="step"><div class="n">3</div><div><strong>Learning for all</strong><div>Studios, schools outreach, and accessible resources throughout.</div></div></div>
+        </div>
+        <div class="btn-row"><a href="#membership" class="button alt"><svg class="icon" aria-hidden="true"><use href="#icon-heart"/></svg>Become a Member</a></div>
+      </div>
+      <div class="panel reveal">
+        <div class="thumb" style="aspect-ratio:4/3;overflow:hidden;border-radius:16px">
+          <img src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=1600&auto=format&fit=crop" alt="Visitors enjoying an exhibition hall">
+        </div>
+        <div class="grid" style="grid-template-columns:1fr 1fr;margin-top:.8rem">
+          <div class="card">
+            <div class="meta"><strong>Accredited</strong><span>Regional Museums Council</span></div>
+            <p>Committed to conservation standards, accessibility, and inclusion.</p>
+          </div>
+          <div class="card">
+            <div class="meta"><strong>Eco-conscious</strong><span>Solar courtyard</span></div>
+            <p>Our campus runs on 60% renewable energy and a zero-waste cafe.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="exhibitions" class="section">
+    <div class="container">
+      <div class="reveal">
+        <h2>Exhibitions & Collections</h2>
+        <p>From rare textiles to contemporary ceramics, explore what’s on view and what’s on the horizon.</p>
+      </div>
+      <div class="tabs reveal" role="tablist" aria-label="Exhibition filters">
+        <button class="tab active" role="tab" aria-selected="true" data-filter="all">All</button>
+        <button class="tab" role="tab" aria-selected="false" data-filter="current">Now On</button>
+        <button class="tab" role="tab" aria-selected="false" data-filter="upcoming">Upcoming</button>
+        <button class="tab" role="tab" aria-selected="false" data-filter="collection">Collection</button>
+      </div>
+      <div class="cards" id="exhibition-cards">
+        <article class="card reveal" data-tag="current">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1510936994138-09c8d7fcd805?q=80&w=1200&auto=format&fit=crop" alt="Glazed pottery vessels on plinths"></div>
+          <h3>Fired Earth: Contemporary Ceramics</h3>
+          <div class="meta"><span>Through Aug 31</span></div>
+          <p>Regional makers explore form and function through clay, ash, and flame.</p>
+          <div class="btn-row"><a class="button alt" href="#tickets">Reserve Timed Entry</a></div>
+        </article>
+        <article class="card reveal" data-tag="current">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1615751072497-e1e0be5d81a1?q=80&w=1200&auto=format&fit=crop" alt="Woven textiles with geometric patterns"></div>
+          <h3>Threads of Home</h3>
+          <div class="meta"><span>Through Oct 12</span></div>
+          <p>Textile traditions spanning three generations of Willowbrook families.</p>
+          <div class="btn-row"><a class="button alt" href="#visit">Plan Your Visit</a></div>
+        </article>
+        <article class="card reveal" data-tag="upcoming">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?q=80&w=1200&auto=format&fit=crop" alt="Gallery wall with framed drawings"></div>
+          <h3>Sketching the Quiet</h3>
+          <div class="meta"><span>Opens Nov 2</span></div>
+          <p>Intimate works on paper capturing everyday stillness and light.</p>
+          <div class="btn-row"><a class="button alt" href="#newsletter">Get Opening Invite</a></div>
+        </article>
+        <article class="card reveal" data-tag="collection">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1470115636492-6d2b56f9146e?q=80&w=1200&auto=format&fit=crop" alt="Antique wooden tools on display"></div>
+          <h3>Folk Tools & Trades</h3>
+          <div class="meta"><span>Permanent</span></div>
+          <p>Stories behind the tools that built Willowbrook’s early industries.</p>
+          <div class="btn-row"><a class="button alt" href="#gallery">View Objects</a></div>
+        </article>
+        <article class="card reveal" data-tag="collection">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1520694478166-daaaaec95b69?q=80&w=1200&auto=format&fit=crop" alt="Historic portrait in a golden frame"></div>
+          <h3>Portraits of a Town</h3>
+          <div class="meta"><span>Permanent</span></div>
+          <p>Faces and moments that shaped a century of community life.</p>
+          <div class="btn-row"><a class="button alt" href="#gallery">View Gallery</a></div>
+        </article>
+        <article class="card reveal" data-tag="upcoming">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1530124566582-a618bc2615dc?q=80&w=1200&auto=format&fit=crop" alt="Sculpture in a sunlit courtyard"></div>
+          <h3>Court of Light</h3>
+          <div class="meta"><span>Opens Jan 20</span></div>
+          <p>Large-scale sculptures transforming our courtyard through seasons.</p>
+          <div class="btn-row"><a class="button alt" href="#newsletter">Join Waitlist</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="visit" class="section visit">
+    <div class="container">
+      <h2 class="reveal">Plan Your Visit</h2>
+      <div class="info">
+        <div class="panel reveal">
+          <div class="grid" style="grid-template-columns:1fr 1fr">
+            <div>
+              <h3>Hours</h3>
+              <p>Tue–Sun 10:00 AM – 6:00 PM</p>
+              <p>Thursdays open late until 9:00 PM</p>
+              <h3>Admission</h3>
+              <p>Adults $12, Seniors $9, Students $7, Under 12 free</p>
+            </div>
+            <div>
+              <h3>Getting Here</h3>
+              <p>132 Maple Lane, Willowbrook</p>
+              <p>Bus 4, 7 to Maple & 3rd. Free two-hour parking onsite.</p>
+              <h3>Accessibility</h3>
+              <p>Step-free access, quiet hours, and assistive listening available.</p>
+            </div>
+          </div>
+          <hr class="sep">
+          <div class="btn-row"><a class="button" href="#tickets"><svg class="icon"><use href="#icon-ticket"/></svg>Buy Tickets</a><a class="button alt" href="#contact"><svg class="icon"><use href="#icon-phone"/></svg>Visitor Help</a></div>
+        </div>
+        <div class="map panel reveal" aria-label="Map">
+          <iframe title="Willowbrook Museum map" width="100%" height="100%" src="https://maps.google.com/maps?q=New%20York%20Public%20Library&t=k&z=14&ie=UTF8&iwloc=&output=embed" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tickets" class="section">
+    <div class="container">
+      <h2 class="reveal">Tickets</h2>
+      <div class="pricing">
+        <div class="price-card reveal">
+          <div class="meta"><strong>General</strong></div>
+          <div class="price">$12</div>
+          <p>Includes access to all galleries and the courtyard.</p>
+          <a class="button alt" href="#ticket-form">Select</a>
+        </div>
+        <div class="price-card reveal">
+          <div class="meta"><strong>Family</strong></div>
+          <div class="price">$28</div>
+          <p>2 adults and up to 3 youth. Includes activity guide.</p>
+          <a class="button alt" href="#ticket-form">Select</a>
+        </div>
+        <div class="price-card reveal">
+          <div class="meta"><strong>Thursday Late</strong></div>
+          <div class="price">$8</div>
+          <p>Discounted admission after 5 PM on Thursdays.</p>
+          <a class="button alt" href="#ticket-form">Select</a>
+        </div>
+      </div>
+      <div id="ticket-form" class="panel reveal" style="margin-top:1rem">
+        <h3>Reserve Your Visit</h3>
+        <form>
+          <div class="grid" style="grid-template-columns:1fr 1fr 1fr">
+            <div><label for="date">Date</label><input id="date" type="date" required></div>
+            <div><label for="time">Time</label><select id="time" required><option value="">Choose a time</option><option>10:00 AM</option><option>12:00 PM</option><option>2:00 PM</option><option>4:00 PM</option></select></div>
+            <div><label for="type">Ticket Type</label><select id="type" required><option value="">Choose type</option><option value="12">General</option><option value="28">Family</option><option value="8">Thursday Late</option></select></div>
+          </div>
+          <div class="grid" style="grid-template-columns:1fr 1fr 1fr;margin-top:.6rem">
+            <div><label for="qty">Quantity</label><input id="qty" type="number" min="1" value="1" required></div>
+            <div><label for="name">Full Name</label><input id="name" type="text" placeholder="Jane Doe" required></div>
+            <div><label for="email">Email</label><input id="email" type="email" placeholder="you@example.com" required></div>
+          </div>
+          <div class="form-actions" style="margin-top:.8rem">
+            <button type="submit" class="button"><svg class="icon"><use href="#icon-ticket"/></svg>Proceed to Checkout</button>
+            <div aria-live="polite" id="total" class="chip">Total: $12</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="events" class="section">
+    <div class="container">
+      <h2 class="reveal">Events & Programs</h2>
+      <div class="event-list">
+        <div class="event reveal">
+          <div class="meta"><strong>Artist Talk</strong><span>Sat, Aug 24</span></div>
+          <h3>Clay and Community</h3>
+          <p>Join exhibiting ceramicists for an open conversation and demo.</p>
+          <a class="button alt" href="#tickets">RSVP Free</a>
+        </div>
+        <div class="event reveal">
+          <div class="meta"><strong>Family Day</strong><span>Sun, Sep 8</span></div>
+          <h3>Textile Play Studio</h3>
+          <p>Hands-on weaving, storytelling, and gallery games for kids.</p>
+          <a class="button alt" href="#tickets">Reserve</a>
+        </div>
+        <div class="event reveal">
+          <div class="meta"><strong>Workshop</strong><span>Thu, Sep 19</span></div>
+          <h3>Sketch at Sunset</h3>
+          <p>Outdoor drawing session in the courtyard with live guidance.</p>
+          <a class="button alt" href="#tickets">Book</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="section">
+    <div class="container">
+      <h2 class="reveal">Gallery</h2>
+      <p class="reveal">A glimpse into our spaces and collections.</p>
+      <div class="gallery">
+        <a href="https://images.unsplash.com/photo-1549880338-6a23b0a6b7a5?q=80&w=1600&auto=format&fit=crop"><img alt="Sculpture hall" src="https://images.unsplash.com/photo-1549880338-6a23b0a6b7a5?q=80&w=800&auto=format&fit=crop"></a>
+        <a href="https://images.unsplash.com/photo-1520694478166-daaaaec95b69?q=80&w=1600&auto=format&fit=crop"><img alt="Historic gallery" src="https://images.unsplash.com/photo-1520694478166-daaaaec95b69?q=80&w=800&auto=format&fit=crop"></a>
+        <a href="https://images.unsplash.com/photo-1470115636492-6d2b56f9146e?q=80&w=1600&auto=format&fit=crop"><img alt="Folk tools display" src="https://images.unsplash.com/photo-1470115636492-6d2b56f9146e?q=80&w=800&auto=format&fit=crop"></a>
+        <a href="https://images.unsplash.com/photo-1510936994138-09c8d7fcd805?q=80&w=1600&auto=format&fit=crop"><img alt="Ceramics on plinths" src="https://images.unsplash.com/photo-1510936994138-09c8d7fcd805?q=80&w=800&auto=format&fit=crop"></a>
+        <a href="https://images.unsplash.com/photo-1615751072497-e1e0be5d81a1?q=80&w=1600&auto=format&fit=crop"><img alt="Patterned textiles" src="https://images.unsplash.com/photo-1615751072497-e1e0be5d81a1?q=80&w=800&auto=format&fit=crop"></a>
+        <a href="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?q=80&w=1600&auto=format&fit=crop"><img alt="Framed drawings" src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?q=80&w=800&auto=format&fit=crop"></a>
+        <a href="https://images.unsplash.com/photo-1530124566582-a618bc2615dc?q=80&w=1600&auto=format&fit=crop"><img alt="Courtyard sculpture" src="https://images.unsplash.com/photo-1530124566582-a618bc2615dc?q=80&w=800&auto=format&fit=crop"></a>
+        <a href="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=1600&auto=format&fit=crop"><img alt="Visitors in foyer" src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=800&auto=format&fit=crop"></a>
+      </div>
+    </div>
+    <div class="lightbox" aria-modal="true" role="dialog">
+      <button class="close" aria-label="Close">Close</button>
+      <img alt="">
+    </div>
+  </section>
+
+  <section id="education" class="section">
+    <div class="container columns">
+      <div class="reveal">
+        <h2>Education & Community</h2>
+        <p>Programs designed with educators and local partners to inspire curiosity and care.</p>
+        <div class="card">
+          <h3>Schools & Tours</h3>
+          <p>Curriculum-aligned tours for grades K–12 with pre-visit materials and post-visit creative prompts.</p>
+          <div class="btn-row"><a class="button alt" href="#contact">Book a Group</a></div>
+        </div>
+        <div class="card">
+          <h3>Studio Workshops</h3>
+          <p>Monthly hands-on sessions in ceramics, printmaking, and textile arts led by resident artists.</p>
+          <div class="btn-row"><a class="button alt" href="#events">See Schedule</a></div>
+        </div>
+      </div>
+      <div class="panel reveal">
+        <div class="thumb" style="aspect-ratio:4/3;overflow:hidden;border-radius:16px">
+          <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1600&auto=format&fit=crop" alt="Children participating in a workshop">
+        </div>
+        <div style="margin-top:.8rem">
+          <strong>Access & Inclusion</strong>
+          <p>We offer sensory-friendly resources, descriptive tours, and ASL interpretation upon request.</p>
+          <div class="btn-row"><a class="button" href="#contact">Request Accommodations</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="membership" class="section">
+    <div class="container">
+      <h2 class="reveal">Membership & Support</h2>
+      <div class="cards">
+        <div class="card reveal">
+          <h3>Join as a Member</h3>
+          <p>Unlimited free admission, previews, and cafe discounts.</p>
+          <div class="price">$45/year</div>
+          <a class="button" href="#join">Join Today</a>
+        </div>
+        <div class="card reveal">
+          <h3>Give a Gift</h3>
+          <p>Honor someone special and support community programs.</p>
+          <div class="price">$25+</div>
+          <a class="button" href="#donate">Donate</a>
+        </div>
+        <div class="card reveal">
+          <h3>Volunteer</h3>
+          <p>Help welcome visitors, assist workshops, and support events.</p>
+          <div class="price">Weekly</div>
+          <a class="button" href="#contact">Apply</a>
+        </div>
+      </div>
+      <div id="join" class="panel reveal" style="margin-top:1rem">
+        <h3>Become a Member</h3>
+        <form>
+          <div class="grid" style="grid-template-columns:1fr 1fr 1fr">
+            <div><label for="mname">Full Name</label><input id="mname" required></div>
+            <div><label for="memail">Email</label><input id="memail" type="email" required></div>
+            <div><label for="mtier">Tier</label><select id="mtier" required><option value="">Select</option><option>Individual $45</option><option>Dual $70</option><option>Family $90</option></select></div>
+          </div>
+          <div class="form-actions" style="margin-top:.8rem"><button class="button" type="submit"><svg class="icon"><use href="#icon-heart"/></svg>Start Membership</button></div>
+        </form>
+      </div>
+      <div id="donate" class="panel reveal" style="margin-top:1rem">
+        <h3>Make a Donation</h3>
+        <form>
+          <div class="grid" style="grid-template-columns:1fr 1fr 1fr">
+            <div><label for="dname">Full Name</label><input id="dname" required></div>
+            <div><label for="demail">Email</label><input id="demail" type="email" required></div>
+            <div><label for="damount">Amount</label><select id="damount" required><option value="">Choose</option><option>$25</option><option>$50</option><option>$100</option><option>$250</option></select></div>
+          </div>
+          <div class="form-actions" style="margin-top:.8rem"><button class="button" type="submit"><svg class="icon"><use href="#icon-heart"/></svg>Donate</button></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="reveal">Cafe & Shop</h2>
+      <div class="columns">
+        <div class="reveal">
+          <div class="card">
+            <h3>Courtyard Cafe</h3>
+            <p>Seasonal soups, sourdough sandwiches, and locally roasted coffee. Vegan and gluten-free options daily.</p>
+            <div class="meta"><svg class="icon"><use href="#icon-clock"/></svg><span>10:00 AM – 5:30 PM</span></div>
+          </div>
+          <div class="card">
+            <h3>Museum Shop</h3>
+            <p>Artist-made goods, exhibition catalogs, and playful gifts inspired by our collection.</p>
+          </div>
+        </div>
+        <div class="panel reveal">
+          <div class="shop-grid">
+            <div class="shop-item">
+              <div class="thumb"><img src="https://images.unsplash.com/photo-1495552665516-a9e7fc05a3f5?q=80&w=800&auto=format&fit=crop" alt="Handmade ceramic mug"></div>
+              <strong>Ceramic Mug</strong>
+              <span>$24</span>
+            </div>
+            <div class="shop-item">
+              <div class="thumb"><img src="https://images.unsplash.com/photo-1517630800677-932d836ab680?q=80&w=800&auto=format&fit=crop" alt="Patterned scarf"></div>
+              <strong>Textile Scarf</strong>
+              <span>$38</span>
+            </div>
+            <div class="shop-item">
+              <div class="thumb"><img src="https://images.unsplash.com/photo-1531679859294-41f3d2d43e83?q=80&w=800&auto=format&fit=crop" alt="Art book"></div>
+              <strong>Exhibition Book</strong>
+              <span>$32</span>
+            </div>
+            <div class="shop-item">
+              <div class="thumb"><img src="https://images.unsplash.com/photo-1484981138541-b1f199e0b8aa?q=80&w=800&auto=format&fit=crop" alt="Wooden toy"></div>
+              <strong>Wooden Toy</strong>
+              <span>$18</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section testimonials">
+    <div class="container">
+      <h2 class="reveal">What Visitors Say</h2>
+      <div class="slider reveal" aria-roledescription="carousel">
+        <div class="slides">
+          <div class="slide">
+            <div class="quote">A small museum with a big heart. The staff made my kids feel like artists.</div>
+            <div class="meta"><svg class="icon"><use href="#icon-star"/></svg><svg class="icon"><use href="#icon-star"/></svg><svg class="icon"><use href="#icon-star"/></svg><svg class="icon"><use href="#icon-star"/></svg><svg class="icon"><use href="#icon-star"/></svg></div>
+          </div>
+          <div class="slide">
+            <div class="quote">Thoughtful exhibits and a beautiful courtyard. Don't miss the cafe.</div>
+            <div class="meta"><svg class="icon"><use href="#icon-star"/></svg><svg class="icon"><use href="#icon-star"/></svg><svg class="icon"><use href="#icon-star"/></svg><svg class="icon"><use href="#icon-star"/></svg><svg class="icon"><use href="#icon-star"/></svg></div>
+          </div>
+          <div class="slide">
+            <div class="quote">Genuine community hub. The textile show was moving and meticulously curated.</div>
+            <div class="meta"><svg class="icon"><use href="#icon-star"/></svg><svg class="icon"><use href="#icon-star"/></svg><svg class="icon"><use href="#icon-star"/></svg><svg class="icon"><use href="#icon-star"/></svg><svg class="icon"><use href="#icon-star"/></svg></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="reveal">News & Press</h2>
+      <div class="news">
+        <article class="card reveal">
+          <div class="meta"><strong>Press</strong><span>Local Times</span></div>
+          <h3>Willowbrook Museum’s New Courtyard Unveiled</h3>
+          <p>A luminous space for art and gathering, open daily.</p>
+          <a class="button alt" href="#">Read</a>
+        </article>
+        <article class="card reveal">
+          <div class="meta"><strong>Update</strong><span>From the Director</span></div>
+          <h3>Our Commitment to Accessibility</h3>
+          <p>Expanding resources and training to welcome every visitor.</p>
+          <a class="button alt" href="#">Learn More</a>
+        </article>
+        <article class="card reveal">
+          <div class="meta"><strong>Blog</strong><span>Collections</span></div>
+          <h3>Five Objects, Five Stories</h3>
+          <p>Curators share beloved artifacts from storage to spotlight.</p>
+          <a class="button alt" href="#">Explore</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="reveal">Frequently Asked Questions</h2>
+      <div class="faq">
+        <details class="reveal"><summary>Is the museum fully accessible?</summary><p>Yes. We offer step-free access, elevators, and accessible restrooms. Ask about quiet kits and wheelchairs at the front desk.</p></details>
+        <details class="reveal"><summary>Do I need to book in advance?</summary><p>Walk-ins are welcome. Timed tickets recommended on weekends and special events.</p></details>
+        <details class="reveal"><summary>Can I take photos?</summary><p>Non-flash photography is allowed for personal use in most galleries. Look for signage where restrictions apply.</p></details>
+        <details class="reveal"><summary>Where can I park?</summary><p>Free two-hour parking is available in the museum lot and surrounding streets.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="newsletter" class="section">
+    <div class="container newsletter panel reveal">
+      <div>
+        <h2>Stay in the loop</h2>
+        <p>Exhibitions, events, and member offers delivered to your inbox.</p>
+      </div>
+      <form>
+        <div class="form-row">
+          <label class="visually-hidden" for="nemail">Email</label>
+          <input id="nemail" type="email" placeholder="you@example.com" required>
+          <button class="button" type="submit"><svg class="icon"><use href="#icon-mail"/></svg>Subscribe</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="container columns">
+      <div class="panel reveal">
+        <h2>Contact Us</h2>
+        <form action="mailto:info@willowbrookmuseum.org">
+          <div class="grid" style="grid-template-columns:1fr 1fr">
+            <div><label for="cname">Full Name</label><input id="cname" required></div>
+            <div><label for="cemail">Email</label><input id="cemail" type="email" required></div>
+          </div>
+          <div class="grid" style="grid-template-columns:1fr 1fr;margin-top:.6rem">
+            <div><label for="creason">Reason</label><select id="creason" required><option value="">Select</option><option>General</option><option>Group Visit</option><option>Education</option><option>Accessibility</option></select></div>
+            <div><label for="cphone">Phone (optional)</label><input id="cphone" type="tel" inputmode="tel"></div>
+          </div>
+          <div style="margin-top:.6rem"><label for="cmsg">Message</label><textarea id="cmsg" required></textarea></div>
+          <div class="form-actions" style="margin-top:.8rem">
+            <button class="button" type="submit"><svg class="icon"><use href="#icon-mail"/></svg>Send</button>
+            <a class="button alt" href="tel:+1234567890"><svg class="icon"><use href="#icon-phone"/></svg>Call</a>
+          </div>
+        </form>
+      </div>
+      <div class="reveal">
+        <div class="card">
+          <h3>Visit</h3>
+          <div class="meta"><svg class="icon"><use href="#icon-pin"/></svg><span>132 Maple Lane, Willowbrook</span></div>
+          <div class="meta"><svg class="icon"><use href="#icon-clock"/></svg><span>Tue–Sun 10–6, Thu until 9</span></div>
+        </div>
+        <div class="card">
+          <h3>Follow</h3>
+          <div class="social">
+            <a href="#" aria-label="Instagram"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5m5 5a5 5 0 1 0 .001 10.001A5 5 0 0 0 12 7m6-1a1 1 0 1 0-.001 2.001A1 1 0 0 0 18 6"/></svg></a>
+            <a href="#" aria-label="Facebook"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M22 12A10 10 0 1 0 10 21.95V14.9H7.5V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9c1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.5V12h2.7l-.4 2.9H13V22A10 10 0 0 0 22 12"/></svg></a>
+            <a href="#" aria-label="X"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h4.6l4.3 6.2L17.6 3H21l-7.3 9.8L21 21h-4.6l-4.5-6.5L6.4 21H3l7.5-9.8z"/></svg></a>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Press</h3>
+          <p>press@willowbrookmuseum.org</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="stamp"><svg class="icon"><use href="#icon-ticket"/></svg><strong>Free First Fridays</strong></div>
+  <div class="container footer-top">
+    <div class="footer-grid">
+      <div>
+        <div class="brand"><span class="logo" aria-hidden="true">WM</span><span>Willowbrook Museum</span></div>
+        <p style="color:#cfcac0">A cozy home for art, craft, and community.</p>
+        <div class="social">
+          <a href="#" aria-label="Instagram"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5m5 5a5 5 0 1 0 .001 10.001A5 5 0 0 0 12 7m6-1a1 1 0 1 0-.001 2.001A1 1 0 0 0 18 6"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M22 12A10 10 0 1 0 10 21.95V14.9H7.5V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9c1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.5V12h2.7l-.4 2.9H13V22A10 10 0 0 0 22 12"/></svg></a>
+          <a href="#" aria-label="X"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h4.6l4.3 6.2L17.6 3H21l-7.3 9.8L21 21h-4.6l-4.5-6.5L6.4 21H3l7.5-9.8z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <strong>Visit</strong>
+        <p>132 Maple Lane<br>Willowbrook</p>
+        <p>Tue–Sun 10–6<br>Thu until 9</p>
+      </div>
+      <div>
+        <strong>Explore</strong>
+        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:.3rem">
+          <li><a href="#exhibitions">Exhibitions</a></li>
+          <li><a href="#events">Events</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#membership">Membership</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+        </ul>
+      </div>
+      <div>
+        <strong>Contact</strong>
+        <p>info@willowbrookmuseum.org<br>(123) 456-7890</p>
+        <a class="button alt" href="#contact">Get in Touch</a>
+      </div>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <div>© <span id="year"></span> Willowbrook Museum</div>
+    <div><a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#accessibility">Accessibility</a></div>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Museum",
+  "name": "Willowbrook Museum",
+  "url": "https://example.org",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "132 Maple Lane",
+    "addressLocality": "Willowbrook",
+    "addressRegion": "NY",
+    "postalCode": "10000",
+    "addressCountry": "US"
+  },
+  "openingHours": "Tu-Su 10:00-18:00",
+  "telephone": "+1-123-456-7890",
+  "image": "https://images.unsplash.com/photo-1514890547357-a9ee1c5e3a66?q=80&w=1600&auto=format&fit=crop",
+  "priceRange": "$",
+  "sameAs": ["https://instagram.com", "https://facebook.com"]
+}
+</script>
+
+<script>
+const mobileToggle=document.querySelector('.mobile-toggle');const navList=document.getElementById('navmenu');mobileToggle?.addEventListener('click',()=>{const open=navList.classList.toggle('open');mobileToggle.setAttribute('aria-expanded',open)});
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttribute('href');const el=document.querySelector(id);if(el){e.preventDefault();el.scrollIntoView({behavior:'smooth'})}}));
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+const tabs=document.querySelectorAll('.tab');const cardWrap=document.getElementById('exhibition-cards');tabs.forEach(t=>t.addEventListener('click',()=>{tabs.forEach(x=>{x.classList.remove('active');x.setAttribute('aria-selected','false')});t.classList.add('active');t.setAttribute('aria-selected','true');const tag=t.dataset.filter;cardWrap.querySelectorAll('.card').forEach(c=>{c.style.display=(tag==='all'||c.dataset.tag===tag)?'flex':'none'})}));
+const lb=document.querySelector('.lightbox');const lbImg=lb.querySelector('img');document.querySelectorAll('.gallery a').forEach(g=>g.addEventListener('click',e=>{e.preventDefault();lbImg.src=g.href;lb.classList.add('open');lbImg.alt=g.querySelector('img').alt;lb.querySelector('.close').focus()}));lb.querySelector('.close').addEventListener('click',()=>lb.classList.remove('open'));lb.addEventListener('click',e=>{if(e.target===lb)lb.classList.remove('open')});window.addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('open')});
+const slides=document.querySelector('.slides');let idx=0;setInterval(()=>{idx=(idx+1)%3;slides.style.transform=`translateX(-${idx*100}%)`},5000);
+const type=document.getElementById('type');const qty=document.getElementById('qty');const total=document.getElementById('total');function recalc(){const price=parseFloat(type.value||'0');const n=parseInt(qty.value||'1',10);const t=(price*n)||0;total.textContent=`Total: $${t.toFixed(0)}`}type?.addEventListener('change',recalc);qty?.addEventListener('input',recalc);recalc();
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
